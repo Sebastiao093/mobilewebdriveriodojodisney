@@ -1,3 +1,4 @@
+import { join } from 'path';
 export const config = {
     //
     // ====================
@@ -5,7 +6,7 @@ export const config = {
     // ====================
     // WebdriverIO supports running e2e tests as well as unit and component tests.
     runner: 'local',
-    
+    path: '/wd/hub',    
     port: 4723,
     //
     // ==================
@@ -24,6 +25,7 @@ export const config = {
     // will be called from there.
     //
     specs: [
+        './src/specs/*.spec.js'
         // ToDo: define location for spec files here
     ],
     // Patterns to exclude.
@@ -57,10 +59,12 @@ export const config = {
         // maxInstances can get overwritten per capability. So if you have an in-house Selenium
         // grid with only 5 firefox instances available you can make sure that not more than
         // 5 instances get started at a time.
-        maxInstances: 5,
+        maxInstances: 1,
         //
-        browserName: 'chrome',
-        acceptInsecureCerts: true
+        "appium:deviceName":"Pixel 5 API 30",
+        "platformName": "Android",
+        "appium:automationName": "uiAutomator2",
+        "appium:app": join ( process.cwd(), './apps/disneyland.apk')
         // If outputDir is provided WebdriverIO can capture driver session logs
         // it is possible to configure which logTypes to include/exclude.
         // excludeDriverLogs: ['*'], // pass '*' to exclude all driver session logs
@@ -113,7 +117,7 @@ export const config = {
     // Services take over a specific job you don't want to take care of. They enhance
     // your test setup with almost no effort. Unlike plugins, they don't add new
     // commands. Instead, they hook themselves up into the test process.
-    services: ['appium'],
+    services: [],
     
     // Framework you want to run your specs with.
     // The following are supported: Mocha, Jasmine, and Cucumber
